@@ -1,0 +1,16 @@
+﻿# Datos, contexto privado y eventos derivados: nunca publicar automáticamente.
+/data/
+/context/
+/docs/auditorias/
+/docs/historial/
+/experiments/historial/
+# Entornos y temporales
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+.pdf_profile/
+.pdf_review/
+# Auditoría histórica del dataset equivocado
+/scripts/auditar_datos_kkbox.py
