@@ -1,0 +1,16 @@
+﻿{
+  "source": "WSDM - KKBox Churn Prediction Challenge",
+  "url": "https://www.kaggle.com/competitions/kkbox-churn-prediction-challenge/data",
+  "competition": "kkbox-churn-prediction-challenge",
+  "required_for_hito2": "transactions.csv.7z",
+  "relative_path": "data/kkbox-churn-prediction-challenge/transactions.csv.7z",
+  "archive_member": "transactions.csv",
+  "bytes": 707508779,
+  "sha256": "ff273f50f8e690c7ec94b05ab2bc34cc54aba3652fb3df981c6dcdaeb76b42f6",
+  "observed_rows": 21547746,
+  "observed_first_transaction": "2015-01-01",
+  "observed_last_transaction": "2017-02-28",
+  "access": "Kaggle account and acceptance of competition rules; no credentials included",
+  "download_script": "data/descargar_datos.ps1",
+  "derived_data": "Rebuild using the ordered scripts in the root README; not redistributed"
+}

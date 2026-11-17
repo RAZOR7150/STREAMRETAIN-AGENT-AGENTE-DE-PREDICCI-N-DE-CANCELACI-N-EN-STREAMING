@@ -1,0 +1,538 @@
+{
+  "metadata": {
+    "project": "StreamRetain-Agent",
+    "document_type": "contexto_de_proyecto_para_codex",
+    "language": "es-CO",
+    "version": "1.0",
+    "created_on": "2026-11-15",
+    "purpose": "Transferir decisiones, requisitos, hipótesis, restricciones y pendientes discutidos en ChatGPT para implementar el agente sin asumir funcionalidades inexistentes.",
+    "source_of_truth_order": [
+      "Correcciones explícitas posteriores del usuario",
+      "Documento Diseño Inicial StreamRetain-Agent v2",
+      "Plantilla_Diseño_Agente.docx",
+      "Agente Caso de uso.docx",
+      "Material docente y fuente científica",
+      "Propuestas del asistente aún no confirmadas"
+    ]
+  },
+  "project_identity": {
+    "name": "STREAMRETAIN-AGENT",
+    "title": "Agente de predicción de cancelación en streaming",
+    "domain": "Plataformas digitales de streaming por suscripción",
+    "institution": "Universidad Tecnológica de Bolívar",
+    "course": "Inteligencia Artificial",
+    "academic_design_document": "Diseno_Inicial_StreamRetain_Agent_v2.docx",
+    "academic_template": "Plantilla_Diseño_Agente.docx",
+    "scope": "Plataforma piloto de streaming y suscriptores activos",
+    "implementation_status": "Diseño conceptual; no se ha confirmado implementación funcional, dataset definitivo, entrenamiento exitoso ni integración real con marketing."
+  },
+  "user_instructions": {
+    "critical_feedback": "Ser estrictamente objetivo; señalar errores, imprecisiones, supuestos infundados o ideas vagas y proponer correcciones justificadas. No validar automáticamente propuestas.",
+    "performance_measure": "Debe estar expresado cuantitativamente.",
+    "technical_terms": "Integrar naturalmente en el texto la explicación de términos técnicos en inglés; evitar glosas explicativas entre paréntesis. Ejemplo: «la cancelación del servicio, que se puede denominar como churn».",
+    "academic_writing": "Lenguaje formal, académico, impersonal o en tercera persona; sin coloquialismos.",
+    "document_fidelity": "Respetar exactamente estructura, orden, títulos y texto fijo de la plantilla oficial, completando solo las partes correspondientes al proyecto.",
+    "data_integrity": "No inventar datos, observaciones semanales, rendimiento del modelo, atributos inexistentes o resultados de ofertas. Distinguir diseño propuesto de capacidades implementadas.",
+    "engineering": "Implementación modular, reproducible y evaluable; no prometer integración real sin credenciales, API o sistema disponible."
+  },
+  "business_objective": {
+    "general": "Identificar semanalmente a suscriptores activos con alta probabilidad de cancelar su suscripción durante las cuatro semanas siguientes y priorizar ofertas de retención.",
+    "prediction_horizon_days": 28,
+    "evaluation_frequency": "semanal",
+    "target_population": "usuarios con suscripción activa en el momento de observación",
+    "output": "probabilidad estimada de cancelación en la ventana futura de 28 días",
+    "action": "priorizar suscriptores de alto riesgo y, cuando exista un sistema de marketing integrado, activar o recomendar una oferta de retención",
+    "feedback": "registrar intervenciones y resultados futuros para evaluación y eventual reentrenamiento"
+  },
+  "confirmed_performance_measure": {
+    "metric_name_es": "exactitud global de clasificación",
+    "metric_name_en": "accuracy",
+    "note": "En el caso de uso aparece «precisión» pero el usuario definió inequívocamente el cálculo como predicciones correctas / total de predicciones; no confundir con precision = TP/(TP+FP).",
+    "formula": "accuracy = (TP + TN) / (TP + TN + FP + FN)",
+    "equivalent_formula": "numero_de_predicciones_correctas / numero_total_de_predicciones_evaluadas",
+    "minimum_acceptable": 0.75,
+    "percent": 75,
+    "temporal_condition": "Se evalúan semanalmente cohortes de predicción cuando ya hayan transcurrido los 28 días necesarios para conocer el resultado real.",
+    "constraints": [
+      "Calcular usando datos de prueba no vistos durante entrenamiento.",
+      "No incluir predicciones recientes cuyo resultado de 28 días todavía es desconocido.",
+      "Reportar además métricas por clase porque accuracy sola puede ocultar bajo desempeño si las clases están desbalanceadas."
+    ],
+    "suggested_secondary_metrics_not_yet_approved": [
+      "recall de cancelación",
+      "precision de cancelación",
+      "F1 de cancelación",
+      "matriz de confusión",
+      "ROC-AUC si corresponde",
+      "tasa de retención observada, sin atribuir causalidad automáticamente"
+    ]
+  },
+  "agent_definition": {
+    "not_just_a_classifier": "Un CSV que entra a un algoritmo predictivo y produce probabilidades es un clasificador; el agente debe integrar percepción, estado/memoria, decisiones, acciones y retroalimentación.",
+    "primary_AIMA_type": "Agente de aprendizaje",
+    "secondary_AIMA_characteristics": [
+      "Basado en modelo interno o estado histórico",
+      "Orientado a metas mediante priorización de retención"
+    ],
+    "utility_based_status": "Opcional/futuro; justificarlo solo si se define función de utilidad y se comparan acciones según beneficio/costo esperado.",
+    "rationality": "Selecciona la acción que maximiza el rendimiento esperado con la información disponible; una predicción probabilística no es certeza ni éxito garantizado.",
+    "workflow": [
+      "Percibir registros de consumo, accesos, plan y pagos",
+      "Validar y preparar los datos",
+      "Actualizar snapshots semanales por usuario",
+      "Calcular variables derivadas cuando exista historial real",
+      "Estimar probabilidad de cancelar en 28 días",
+      "Aplicar criterio de riesgo/intervención aún por definir",
+      "Priorizar usuarios",
+      "Enviar recomendación o solicitud de intervención a marketing si existe integración",
+      "Registrar predicción, decisión, intervención y resultado",
+      "Esperar maduración de 28 días para verificar resultado",
+      "Evaluar modelo y reentrenar solo bajo reglas de validación"
+    ]
+  },
+  "PEAS": {
+    "Performance_Measure": {
+      "primary": "Exactitud global >= 75 % en predicciones evaluables de cancelación a 28 días",
+      "secondary": "Métricas de clasificación y resultados de intervención como indicadores adicionales, sin metas numéricas arbitrarias."
+    },
+    "Environment": [
+      "plataforma piloto de streaming",
+      "suscriptores activos",
+      "registros de reproducción",
+      "registros de acceso",
+      "planes de suscripción",
+      "facturación y pagos",
+      "cancelaciones",
+      "sistema de marketing/retención",
+      "ofertas disponibles",
+      "resultados históricos de intervenciones"
+    ],
+    "Actuators": [
+      "Interfaz o API para comunicar la lista priorizada de usuarios a marketing",
+      "Interfaz o API que solicita/activa una oferta cuando esté disponible",
+      "Mecanismo de escritura del registro histórico de decisiones e intervenciones"
+    ],
+    "Sensors": [
+      "Lectura de registros de reproducciones y horas vistas",
+      "Lectura de registros de autenticación y días desde último acceso",
+      "Lectura de modalidad de plan",
+      "Lectura de modificaciones recientes de método de pago",
+      "Lectura de estado de suscripción y resultado posterior",
+      "Lectura de resultados de campañas/retención"
+    ],
+    "technical_boundary": "El modelo predictivo es procesamiento/razonamiento interno, no es un actuador. La probabilidad y clasificación son salidas internas; la acción sobre el entorno se hace al escribir o comunicarse con otros sistemas."
+  },
+  "environment_classification": {
+    "observability": {
+      "value": "parcialmente observable",
+      "reason": "La intención de cancelar y factores externos del usuario no se observan de manera directa."
+    },
+    "determinism": {
+      "value": "estocástico",
+      "reason": "Usuarios semejantes pueden cancelar o permanecer; el efecto de una oferta es incierto."
+    },
+    "episodicity": {
+      "value": "secuencial",
+      "reason": "Las observaciones e intervenciones anteriores pueden influir en estados y decisiones futuras."
+    },
+    "dynamism": {
+      "value": "dinámico",
+      "reason": "Consumo, accesos, pagos y estado contractual cambian con el tiempo; lectura por lotes semanales."
+    },
+    "discretization": {
+      "value": "continuo con variables discretas",
+      "reason": "Horas y probabilidades son cantidades numéricas; plan y estados son categorías; días desde acceso pueden representarse como enteros."
+    },
+    "number_of_agents": {
+      "value": "agente único en diseño inicial",
+      "reason": "Usuarios y marketing se modelan como parte del entorno, no como agentes inteligentes separados."
+    }
+  },
+  "sensors_and_features": {
+    "proposed_inputs": [
+      {
+        "name": "user_id",
+        "type": "identificador",
+        "use": "vincular observaciones por usuario; evitar usar como predictor arbitrario"
+      },
+      {
+        "name": "watch_hours",
+        "type": "numérico",
+        "source": "registros de reproducción",
+        "availability": "por confirmar según dataset"
+      },
+      {
+        "name": "days_since_last_login",
+        "type": "numérico",
+        "source": "registros de acceso",
+        "availability": "por confirmar según dataset"
+      },
+      {
+        "name": "plan_type",
+        "type": "categórico",
+        "source": "suscripciones",
+        "availability": "por confirmar según dataset"
+      },
+      {
+        "name": "recent_payment_method_change",
+        "type": "booleano/categórico",
+        "source": "facturación",
+        "availability": "por confirmar según dataset"
+      },
+      {
+        "name": "subscription_status",
+        "type": "categórico",
+        "source": "suscripciones",
+        "use": "obtener etiqueta futura sin fuga de información"
+      },
+      {
+        "name": "retention_intervention",
+        "type": "evento/categoría",
+        "source": "sistema de marketing",
+        "availability": "sin integración confirmada"
+      }
+    ],
+    "proposed_derived_features_conditional_on_real_history": [
+      "variación semanal de horas vistas",
+      "media móvil de cuatro semanas",
+      "tendencia de horas vistas",
+      "número de semanas consecutivas con descenso",
+      "desviación del consumo actual frente al promedio histórico"
+    ],
+    "explainability": "Se propone evaluar SHAP para explicar contribuciones de características, sin atribuir causalidad a sus explicaciones."
+  },
+  "weekly_snapshots": {
+    "decision": "Crear un historial temporal propio mediante capturas semanales del estado real de cada usuario.",
+    "snapshot_definition": "Captura del estado observable de un suscriptor en una fecha concreta, asociada a user_id y fecha de observación.",
+    "minimum_fields_proposed": [
+      "user_id",
+      "snapshot_at",
+      "watch_hours_7d",
+      "watch_hours_28d",
+      "days_since_last_login",
+      "plan_type",
+      "recent_payment_method_change",
+      "subscription_status"
+    ],
+    "important_caveats": [
+      "No fabricar historial retrospectivo cuando el dataset solo tiene una fila por usuario.",
+      "Una serie de snapshots solo aporta evolución real si se reciben nuevos datos o eventos; releer el mismo dataset estático no genera información temporal nueva.",
+      "Distinguir consumos acumulados de consumos por intervalo. Si un contador es acumulativo, calcular diferencias con reglas de consistencia.",
+      "Las variables predictoras deben estar disponibles en el momento de la observación; nunca incorporar información futura.",
+      "La etiqueta de cancelación se define observando el periodo posterior de 28 días.",
+      "Los usuarios sin historial suficiente deben tener tratamiento explícito y no inventado."
+    ],
+    "example_illustrative_not_real_data": [
+      {
+        "week": 1,
+        "watch_hours": 12
+      },
+      {
+        "week": 2,
+        "watch_hours": 10
+      },
+      {
+        "week": 3,
+        "watch_hours": 6
+      },
+      {
+        "week": 4,
+        "watch_hours": 2
+      }
+    ],
+    "example_status": "Ejemplo pedagógico, no proviene de un dataset ni representa resultados logrados.",
+    "label_definition_proposal": "churn_next_28d = 1 si el usuario activo en la fecha t cancela entre t y t+28 días; 0 si no cancela y existe seguimiento completo.",
+    "intervention_outcome_caution": "Guardar si hubo intervención y si el usuario permaneció no demuestra que la intervención haya causado la permanencia."
+  },
+  "data_sources": {
+    "candidates": [
+      {
+        "name": "Netflix Customer Churn Dataset",
+        "provider": "Kaggle",
+        "description": "Datos sintéticos con lógica de negocio presentada en el caso de uso",
+        "status": "candidato, sin selección ni auditoría de esquema confirmada"
+      },
+      {
+        "name": "KKBox WSDM Churn Prediction Challenge",
+        "provider": "Kaggle",
+        "description": "Datos reales de streaming de música",
+        "status": "candidato, sin selección ni auditoría de esquema confirmada"
+      }
+    ],
+    "selection_requirements": [
+      "Revisar columnas, unicidad y cantidad de usuarios.",
+      "Verificar si existen fechas, eventos, registros semanales y estado de cancelación posterior.",
+      "Confirmar qué datos puede observar el agente antes del evento de cancelación.",
+      "Asegurar posibilidad de definir la etiqueta de cancelación a 28 días.",
+      "Analizar valores nulos, duplicados, sesgos y desbalance.",
+      "Verificar licencia y restricciones de uso."
+    ],
+    "data_source_warning": "No asumir que el dataset de Netflix contiene historial semanal solo porque el caso de uso lo requiere."
+  },
+  "machine_learning": {
+    "problem": "clasificación binaria supervisada",
+    "classes": {
+      "0": "no cancela dentro de los siguientes 28 días",
+      "1": "cancela dentro de los siguientes 28 días"
+    },
+    "candidate_models": [
+      "Regresión logística",
+      "Árbol de decisión",
+      "Random Forest (bosque aleatorio)",
+      "XGBoost (refuerzo extremo del gradiente)"
+    ],
+    "model_selection_rule": "Comparar empíricamente los modelos; no elegir XGBoost por defecto por haber sido superior en un artículo de otro dominio.",
+    "evaluation_rules": [
+      "Separar entrenamiento, validación y prueba.",
+      "Si existen datos temporales, usar separación cronológica y evitar filtración entre ventanas/usuarios.",
+      "Medir accuracy y métricas por clase.",
+      "Revisar matriz de confusión y desbalance.",
+      "Guardar versión de dataset, variables y modelo.",
+      "No presentar números como resultados obtenidos hasta ejecutar experimentos."
+    ],
+    "reference_paper": {
+      "title": "Customer Churn Prediction Model using Explainable Machine Learning",
+      "authors": [
+        "Jitendra Maan",
+        "Harsh Maan"
+      ],
+      "year": 2023,
+      "domain": "telecomunicaciones, no streaming",
+      "uses": [
+        "preprocesamiento",
+        "selección de variables",
+        "comparación de modelos",
+        "XGBoost",
+        "SHAP"
+      ],
+      "limitation": "Las cifras reportadas en diferentes secciones tienen inconsistencias y no deben tomarse como meta o garantía de este proyecto."
+    }
+  },
+  "architecture_IBM_seven_components": [
+    {
+      "name": "Percepción y manejo de entradas",
+      "implementation": "Cargar, validar y normalizar registros semanales; computar características sin datos futuros."
+    },
+    {
+      "name": "Planificación y descomposición de tareas",
+      "implementation": "Orquestar ingestión, historial, predicción, selección, acción y seguimiento."
+    },
+    {
+      "name": "Memoria",
+      "implementation": "Persistir observaciones, probabilidades, decisiones, versiones, intervenciones y resultados."
+    },
+    {
+      "name": "Razonamiento y toma de decisiones",
+      "implementation": "Modelo de riesgo más regla explícita de priorización e intervención; explicaciones opcionales."
+    },
+    {
+      "name": "Llamada de herramientas y acción (tool calling)",
+      "implementation": "Acceder a bases de datos y, si se dispone de la integración, invocar servicios externos de marketing."
+    },
+    {
+      "name": "Comunicación",
+      "implementation": "Informar identificador, riesgo, prioridad, razones y estado de ejecución; no confundir predicción con cancelación confirmada."
+    },
+    {
+      "name": "Aprendizaje y adaptación",
+      "implementation": "Incorporar observaciones etiquetadas una vez cumplida la ventana futura y reentrenar tras validación."
+    }
+  ],
+  "proposed_implementation_modules_not_approved": {
+    "note": "Arquitectura de software sugerida para Codex, no una especificación obligatoria ni decisión de tecnología.",
+    "modules": [
+      "data_ingestion",
+      "validation",
+      "snapshot_store",
+      "feature_pipeline",
+      "model_training",
+      "model_evaluation",
+      "prediction_service",
+      "risk_policy",
+      "retention_adapter",
+      "intervention_log",
+      "outcome_labeling",
+      "model_registry",
+      "scheduler",
+      "audit_and_monitoring"
+    ],
+    "suggested_entities": [
+      "Subscriber",
+      "WeeklySnapshot",
+      "Prediction",
+      "RetentionIntervention",
+      "SubscriptionOutcome",
+      "ModelVersion"
+    ],
+    "operational_safeguards": [
+      "Idempotencia por usuario y semana para evitar snapshots o acciones duplicadas.",
+      "El adaptador de marketing puede comenzar como simulador claramente marcado hasta que se defina API real.",
+      "Separar ejecución predictiva de entrenamiento y de evaluación con etiquetas maduras.",
+      "No realizar reentrenamiento automático sin evaluación y criterio de aceptación.",
+      "No exponer datos sensibles en logs."
+    ]
+  },
+  "document_template_required_structure": {
+    "source": "Plantilla_Diseño_Agente.docx",
+    "front_page": [
+      "Institución",
+      "Programa académico",
+      "Diseño Inicial de un Agente Inteligente",
+      "Título/nombre del agente",
+      "Presentado por",
+      "Curso",
+      "Docente",
+      "Ciudad y fecha"
+    ],
+    "sections": [
+      "1. Introducción y planteamiento del problema",
+      "2. Tipo de agente inteligente",
+      "3. Tipos de ambiente",
+      "4. Descripción del entorno",
+      "5. Entradas y sensores",
+      "6. Salidas y actuadores",
+      "7. Medidas de desempeño",
+      "8. Componentes de la arquitectura de IA agéntica (marco IBM)",
+      "9. Conclusiones",
+      "Referencias"
+    ],
+    "section_8_fixed_text": "Los agentes de inteligencia artificial son sistemas capaces de percibir su entorno, tomar decisiones y ejecutar acciones de manera autónoma. De acuerdo con la arquitectura general de la IA agéntica descrita por IBM, sus componentes principales se estructuran en las siete áreas funcionales que se describen a continuación.",
+    "section_8_subsections": [
+      "Percepción y manejo de entradas",
+      "Planificación y descomposición de tareas",
+      "Memoria",
+      "Razonamiento y toma de decisiones",
+      "Llamada de herramientas y acción (tool calling)",
+      "Comunicación",
+      "Aprendizaje y adaptación"
+    ],
+    "documentation_status": "Se creó una primera versión y una v2, donde la última definió exactitud global y redacción técnica formal."
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "question": "¿Cuál de los datasets candidatos se usará y cuál es su esquema real?",
+      "priority": "bloqueante para entrenamiento",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q2",
+      "question": "¿El dataset contiene sucesos fechados o históricos suficientes para construir ventanas reales de 28 días?",
+      "priority": "bloqueante para validación temporal",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q3",
+      "question": "¿Qué evento exacto constituye una cancelación y cómo se trata la renovación, impago o baja?",
+      "priority": "bloqueante para etiquetas",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q4",
+      "question": "¿Cuál es el umbral de probabilidad para riesgo alto y cómo se selecciona?",
+      "priority": "pendiente para decidir acciones",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q5",
+      "question": "¿Qué ofertas existen y qué reglas o restricciones permiten asignarlas?",
+      "priority": "pendiente para integración",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q6",
+      "question": "¿Se utilizará sistema de marketing real, API, prototipo o simulación?",
+      "priority": "pendiente",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q7",
+      "question": "¿Cómo se medirán los resultados de intervenciones y su efectividad sin confundir correlación con causalidad?",
+      "priority": "pendiente",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q8",
+      "question": "¿Cuál será la plataforma tecnológica, estructura de repositorio, API, base de datos y forma de despliegue?",
+      "priority": "decisión de implementación",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q9",
+      "question": "¿Con qué frecuencia y bajo qué condiciones se reentrena y promueve un modelo nuevo?",
+      "priority": "pendiente",
+      "status": "pendiente"
+    },
+    {
+      "id": "Q10",
+      "question": "¿Existe una fuente actualizable semanalmente o únicamente un archivo CSV estático?",
+      "priority": "bloqueante para historial vivo",
+      "status": "pendiente"
+    }
+  ],
+  "decisions_vs_suggestions": {
+    "confirmed": [
+      "Caso de uso: predicción semanal de cancelación a 28 días",
+      "Métrica primaria accuracy = aciertos/total con objetivo >= 0.75",
+      "Historial semanal basado exclusivamente en observaciones reales",
+      "Agente completo con percepción, memoria, decisión, actuación y aprendizaje",
+      "Redacción académica formal en tercera persona",
+      "Explicar tecnicismos de forma integrada",
+      "Respetar plantilla oficial"
+    ],
+    "proposed_not_yet_confirmed": [
+      "XGBoost como modelo final",
+      "SHAP como explicador seleccionado",
+      "Umbral de riesgo concreto",
+      "Métricas secundarias con metas cuantitativas",
+      "Base de datos, backend, framework o infraestructura",
+      "Ofertas específicas y políticas automáticas",
+      "Entrenamiento automático permanente",
+      "Disponibilidad de integración real con marketing"
+    ]
+  },
+  "references": [
+    {
+      "file": "Agente Caso de uso.docx",
+      "role": "Requisitos base y objetivo del agente"
+    },
+    {
+      "file": "Plantilla_Diseño_Agente.docx",
+      "role": "Estructura obligatoria de documento"
+    },
+    {
+      "file": "Diseno_Inicial_StreamRetain_Agent_v2.docx",
+      "role": "Último diseño académico redactado"
+    },
+    {
+      "file": "AI_Lecture01B_Introduction.pdf",
+      "role": "Fundamentos de inteligencia artificial y aprendizaje"
+    },
+    {
+      "file": "AI_Lecture02_Intelligent_Agents.pdf",
+      "role": "Definición de agente, racionalidad, PEAS, entornos y tipos"
+    },
+    {
+      "file": "Playing Chess Against a Computer (Example).pdf",
+      "role": "Ejemplo de PEAS, usar críticamente por mezcla de razonamiento y actuadores"
+    },
+    {
+      "file": "Fuente de diseño del Agente Caso de uso.pdf",
+      "role": "Estudio sobre predicción de cancelación con aprendizaje explicable, realizado en telecomunicaciones"
+    },
+    {
+      "url": "https://www.ibm.com/mx-es/think/topics/components-of-ai-agents",
+      "role": "Referencia de los siete componentes del marco IBM"
+    }
+  ],
+  "codex_starting_instructions": [
+    "Leer este JSON antes de modificar o crear archivos.",
+    "Inspeccionar el repositorio existente y contrastarlo con las decisiones confirmadas; no sobrescribir código útil.",
+    "Presentar discrepancias y supuestos críticos antes de codificar componentes que dependan de ellos.",
+    "Priorizar un prototipo de extremo a extremo trazable que pueda ejecutarse sin inventar datos, con componentes simulados identificados.",
+    "No asumir que disponer de un CSV estático basta para crear evolución semanal real.",
+    "Implementar tests para definición de etiquetas, separación temporal, cálculo de accuracy, persistencia idempotente y aislamiento de datos futuros.",
+    "Conservar nombres de campos como propuestas hasta revisar el dataset definitivo.",
+    "Documentar en español formal, tercera persona, y explicar los términos poco comunes de forma natural."
+  ]
+}

@@ -25,7 +25,7 @@ Matriz: `[[6799, 0], [411, 0]]`, filas reales y columnas predichas, orden [0,1].
 
 Windows, Python 3.11 (ejecución registrada con 3.11.16), PowerShell y `C:\Windows\System32\tar.exe` con soporte 7z. Dependencias fijadas en requirements.txt. En el equipo del estudiante se usa `C:\Users\HP\anaconda3\python.exe`; en los comandos siguientes `python` debe apuntar a ese entorno o a uno equivalente. Verificar el intérprete antes de ejecutar.
 
-Obtener [transactions.csv.7z de KKBox Churn](https://www.kaggle.com/competitions/kkbox-churn-prediction-challenge/data) aceptando las reglas correspondientes, y colocar el comprimido en `data/kkbox-churn-prediction-challenge/transactions.csv.7z`. El miembro interno debe llamarse `transactions.csv`. No es el dataset de recomendación musical. No descomprimir masivamente. Los CSV brutos/derivados y archivos de contexto se excluyen de Git; no redistribuirlos. Las guías documentan la fuente y extracción. El baseline no necesita los archivos gigantes de escucha.
+Consultar primero [data/README.md](data/README.md) y el script [data/descargar_datos.ps1](data/descargar_datos.ps1), con manifiesto y verificación SHA-256. Obtener [transactions.csv.7z de KKBox Churn](https://www.kaggle.com/competitions/kkbox-churn-prediction-challenge/data) aceptando las reglas correspondientes, y colocar el comprimido en `data/kkbox-churn-prediction-challenge/transactions.csv.7z`. El miembro interno debe llamarse `transactions.csv`. No es el dataset de recomendación musical. No descomprimir masivamente. Los CSV brutos/derivados y temporales se excluyen de Git; el contexto documental se incluye por solicitud expresa del usuario; no redistribuirlos. Las guías documentan la fuente y extracción. El baseline no necesita los archivos gigantes de escucha.
 
 ## Reproducción en cuatro comandos
 
@@ -75,4 +75,6 @@ Auditoría guiada de marzo: nueve casos. Junio: dos casos de nueve revisados man
 
 ## Repositorio remoto
 
-El estudiante creará el repositorio de GitHub/GitLab y publicará este contenido, manteniendo las exclusiones de .gitignore. Añadir su enlace real a la entrega antes de enviarla si el profesor lo requiere. No hay URL remota configurada por el asistente ni publicación automática. No añadir data/ ni informes locales con eventos mediante git add -f.
+[Repositorio del proyecto](https://github.com/RAZOR7150/STREAMRETAIN-AGENT-AGENTE-DE-PREDICCI-N-DE-CANCELACI-N-EN-STREAMING).
+
+El usuario autorizó expresamente sincronizar el contenido local. Se publican código, documentación, contexto, entregables, métricas y la carpeta data con instrucciones de descarga y manifiesto. Se excluyen los datasets brutos/derivados, informes con eventos individuales, credenciales y temporales. Las exclusiones están en .gitignore; no añadir esos archivos con git add -f.

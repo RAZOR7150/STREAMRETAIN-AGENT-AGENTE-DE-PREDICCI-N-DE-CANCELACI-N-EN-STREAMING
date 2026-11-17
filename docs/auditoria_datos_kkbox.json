@@ -1,0 +1,418 @@
+{
+  "review_date": "2026-11-15",
+  "scope": "Todos los registros CSV; solo lectura; sin entrenamiento",
+  "dataset": "KKBox Music Recommendation Challenge",
+  "fit_for_subscription_churn": false,
+  "label_meaning_from_local_description": "Reescucha de una canción dentro de un mes del primer evento observable; no abandono",
+  "limitations": [
+    "No se verificaron duplicados exactos de filas completas ni pares usuario-canción repetidos.",
+    "Vacío significa cadena vacía; no se imputaron otros códigos como nulos.",
+    "No se verificaron integridad de archivos 7z ni licencia de recomendación.",
+    "Fechas de eventos de escucha ausentes del esquema; no se infiere el orden temporal de las filas."
+  ],
+  "files": {
+    "members.csv": {
+      "path": "data/kkbox-music-recommendation-challenge/members.csv",
+      "bytes": 2503827,
+      "sha256": "a3cd1b868d5d32df23ed99f2609d3675f48a5d3ecef35eb591eced3f9b9939ee",
+      "rows": 34403,
+      "malformed_rows": 0,
+      "empty": {
+        "msno": 0,
+        "city": 0,
+        "bd": 0,
+        "gender": 19902,
+        "registered_via": 0,
+        "registration_init_time": 0,
+        "expiration_date": 0
+      },
+      "categories": {
+        "city": {
+          "1": 19445,
+          "13": 3395,
+          "12": 491,
+          "15": 1525,
+          "5": 2634,
+          "6": 913,
+          "4": 1732,
+          "11": 285,
+          "18": 259,
+          "22": 1467,
+          "14": 708,
+          "8": 289,
+          "20": 27,
+          "3": 204,
+          "17": 152,
+          "10": 216,
+          "16": 35,
+          "9": 309,
+          "21": 213,
+          "7": 93,
+          "19": 11
+        },
+        "gender": {
+          "female": 7096,
+          "male": 7405
+        },
+        "registered_via": {
+          "7": 9433,
+          "4": 11392,
+          "9": 8628,
+          "3": 4879,
+          "13": 70,
+          "16": 1
+        }
+      },
+      "numeric": {
+        "bd": {
+          "min": -43.0,
+          "max": 1051.0,
+          "negative": 2,
+          "zero": 19932,
+          "invalid": 0
+        }
+      },
+      "dates": {
+        "registration_init_time": {
+          "min": "2004-03-26",
+          "max": "2017-02-28",
+          "invalid": 0
+        },
+        "expiration_date": {
+          "min": "1970-01-01",
+          "max": "2020-10-17",
+          "invalid": 0
+        }
+      },
+      "checks": {
+        "duplicate_primary_key_rows": 0,
+        "age_below_0_or_above_100": 24,
+        "age_between_1_and_9": 5,
+        "expiration_before_registration": 1
+      },
+      "columns": [
+        "msno",
+        "city",
+        "bd",
+        "gender",
+        "registered_via",
+        "registration_init_time",
+        "expiration_date"
+      ],
+      "unique_primary_keys": 34403
+    },
+    "songs.csv": {
+      "path": "data/kkbox-music-recommendation-challenge/songs.csv",
+      "bytes": 221828666,
+      "sha256": "56c8ee6914fbb5d41ee378fa28d0e1505211886b01d5772944246e24cb26098c",
+      "rows": 2296320,
+      "malformed_rows": 0,
+      "empty": {
+        "song_id": 0,
+        "song_length": 0,
+        "genre_ids": 94116,
+        "artist_name": 0,
+        "composer": 1071348,
+        "lyricist": 1945243,
+        "language": 1
+      },
+      "categories": {
+        "language": {
+          "3.0": 106295,
+          "31.0": 39201,
+          "52.0": 1336694,
+          "17.0": 92518,
+          "10.0": 15482,
+          "-1.0": 639467,
+          "24.0": 41744,
+          "59.0": 8098,
+          "45.0": 14435,
+          "38.0": 2385
+        }
+      },
+      "numeric": {
+        "song_length": {
+          "min": 185.0,
+          "max": 12173850.0,
+          "negative": 0,
+          "zero": 0,
+          "invalid": 0
+        }
+      },
+      "dates": {},
+      "checks": {
+        "duplicate_primary_key_rows": 0
+      },
+      "columns": [
+        "song_id",
+        "song_length",
+        "genre_ids",
+        "artist_name",
+        "composer",
+        "lyricist",
+        "language"
+      ],
+      "unique_primary_keys": 2296320
+    },
+    "song_extra_info.csv": {
+      "path": "data/kkbox-music-recommendation-challenge/song_extra_info.csv",
+      "bytes": 181010294,
+      "sha256": "8a4083603ee8f9de1a81a23635d116dd7a5d2f8061397a149a9f4cece4273e6e",
+      "rows": 2295971,
+      "malformed_rows": 0,
+      "empty": {
+        "song_id": 0,
+        "name": 0,
+        "isrc": 136548
+      },
+      "categories": {},
+      "numeric": {},
+      "dates": {},
+      "checks": {
+        "duplicate_primary_key_rows": 0
+      },
+      "columns": [
+        "song_id",
+        "name",
+        "isrc"
+      ],
+      "unique_primary_keys": 2295971,
+      "keys_also_in_songs": 2295422
+    },
+    "train.csv": {
+      "path": "data/kkbox-music-recommendation-challenge/train.csv",
+      "bytes": 971675848,
+      "sha256": "ff19a9d3fd1def1494082fbee833fd2470ce3342aabdc8de1eb87ee578692934",
+      "rows": 7377418,
+      "malformed_rows": 0,
+      "empty": {
+        "msno": 0,
+        "song_id": 0,
+        "source_system_tab": 18371,
+        "source_screen_name": 414804,
+        "source_type": 21539,
+        "target": 0
+      },
+      "categories": {
+        "source_system_tab": {
+          "explore": 167949,
+          "my library": 3684730,
+          "search": 623286,
+          "discover": 2179252,
+          "radio": 476701,
+          "listen with": 212266,
+          "notification": 6185,
+          "null": 6478,
+          "settings": 2200
+        },
+        "source_screen_name": {
+          "Explore": 72342,
+          "Local playlist more": 3228202,
+          "My library": 75980,
+          "Online playlist more": 1294689,
+          "Album more": 420156,
+          "Discover Feature": 244246,
+          "Unknown": 54170,
+          "Discover Chart": 213658,
+          "Radio": 474467,
+          "Artist more": 252429,
+          "Search": 298487,
+          "Others profile more": 201795,
+          "Search Trends": 13632,
+          "Discover Genre": 82202,
+          "My library_Search": 6451,
+          "Search Home": 13482,
+          "Discover New": 15955,
+          "Self profile more": 212,
+          "Concert": 47,
+          "Payment": 12
+        },
+        "source_type": {
+          "online-playlist": 1967924,
+          "local-playlist": 1079503,
+          "local-library": 2261399,
+          "top-hits-for-artist": 423614,
+          "album": 477344,
+          "song-based-playlist": 210527,
+          "radio": 483109,
+          "song": 244722,
+          "listen-with": 192842,
+          "artist": 3038,
+          "topic-article-playlist": 11194,
+          "my-daily-playlist": 663
+        },
+        "target": {
+          "1": 3714656,
+          "0": 3662762
+        }
+      },
+      "numeric": {
+        "target": {
+          "min": 0.0,
+          "max": 1.0,
+          "negative": 0,
+          "zero": 3662762,
+          "invalid": 0
+        }
+      },
+      "dates": {},
+      "checks": {
+        "rows_user_missing_members": 0,
+        "rows_song_missing_songs": 114,
+        "rows_song_missing_extra_info": 1455
+      },
+      "columns": [
+        "msno",
+        "song_id",
+        "source_system_tab",
+        "source_screen_name",
+        "source_type",
+        "target"
+      ],
+      "unique_users": 30755,
+      "unique_songs": 359966,
+      "unique_users_missing_members": 0,
+      "unique_songs_missing_songs": 52,
+      "unique_songs_missing_extra_info": 159
+    },
+    "test.csv": {
+      "path": "data/kkbox-music-recommendation-challenge/test.csv",
+      "bytes": 347789925,
+      "sha256": "b5bac50fd7d93ee04e9567e61de3bb89d6dec225b2b80474a0cacc85056c91f4",
+      "rows": 2556790,
+      "malformed_rows": 0,
+      "empty": {
+        "id": 0,
+        "msno": 0,
+        "song_id": 0,
+        "source_system_tab": 5096,
+        "source_screen_name": 162883,
+        "source_type": 7297
+      },
+      "categories": {
+        "source_system_tab": {
+          "my library": 1019492,
+          "discover": 871068,
+          "radio": 212765,
+          "search": 277615,
+          "listen with": 98628,
+          "explore": 66023,
+          "settings": 633,
+          "null": 3346,
+          "notification": 2124
+        },
+        "source_screen_name": {
+          "Local playlist more": 845115,
+          "Radio": 211201,
+          "Online playlist more": 529807,
+          "Artist more": 110999,
+          "Discover Genre": 41617,
+          "Album more": 176129,
+          "Discover Chart": 78999,
+          "Discover Feature": 93401,
+          "Search": 121982,
+          "Unknown": 23620,
+          "Explore": 27872,
+          "Others profile more": 90457,
+          "My library": 25559,
+          "My library_Search": 2114,
+          "Search Trends": 4883,
+          "Discover New": 5277,
+          "Search Home": 4705,
+          "Payment": 12,
+          "Self profile more": 131,
+          "People local": 13,
+          "Concert": 13,
+          "People global": 1
+        },
+        "source_type": {
+          "local-library": 582346,
+          "song-based-playlist": 87179,
+          "radio": 215164,
+          "local-playlist": 294537,
+          "online-playlist": 774532,
+          "top-hits-for-artist": 179360,
+          "album": 195190,
+          "song": 129153,
+          "listen-with": 84499,
+          "my-daily-playlist": 2023,
+          "topic-article-playlist": 5082,
+          "artist": 428
+        }
+      },
+      "numeric": {
+        "id": {
+          "min": 0.0,
+          "max": 2556789.0,
+          "negative": 0,
+          "zero": 1,
+          "invalid": 0
+        }
+      },
+      "dates": {},
+      "checks": {
+        "rows_user_missing_members": 0,
+        "rows_song_missing_songs": 25,
+        "rows_song_missing_extra_info": 771,
+        "id_not_equal_zero_based_row_number": 0
+      },
+      "columns": [
+        "id",
+        "msno",
+        "song_id",
+        "source_system_tab",
+        "source_screen_name",
+        "source_type"
+      ],
+      "unique_users": 25131,
+      "unique_songs": 224753,
+      "unique_users_missing_members": 0,
+      "unique_songs_missing_songs": 14,
+      "unique_songs_missing_extra_info": 115,
+      "users_also_in_train": 21483,
+      "songs_also_in_train": 164880
+    },
+    "sample_submission.csv": {
+      "path": "data/kkbox-music-recommendation-challenge/sample_submission.csv",
+      "bytes": 29570380,
+      "sha256": "8a0b2892c48acda3cb7821535d97ec0bac5e4e54573aa0085aca4bb705710ec6",
+      "rows": 2556790,
+      "malformed_rows": 0,
+      "empty": {
+        "id": 0,
+        "target": 0
+      },
+      "categories": {
+        "target": {
+          "0.5": 2556790
+        }
+      },
+      "numeric": {
+        "id": {
+          "min": 0.0,
+          "max": 2556789.0,
+          "negative": 0,
+          "zero": 1,
+          "invalid": 0
+        },
+        "target": {
+          "min": 0.5,
+          "max": 0.5,
+          "negative": 0,
+          "zero": 0,
+          "invalid": 0
+        }
+      },
+      "dates": {},
+      "checks": {
+        "id_not_equal_zero_based_row_number": 0
+      },
+      "columns": [
+        "id",
+        "target"
+      ]
+    }
+  },
+  "elapsed_seconds": 103.33,
+  "complete": true
+}

@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-15",
+  "project_path": "D:\\Users\\Nelson\\Desktop\\RAZOR\\Tareas\\Sexto Semestre\\Inteligencia Artificial\\Proyecto Final",
+  "method": "tar -tvf; lectura de metadatos, sin extraccion ni verificacion CRC",
+  "archives": [
+    {
+      "archive": "members_v3.csv.7z",
+      "compressed_bytes": 242308558,
+      "entries": [
+        {
+          "path": "members_v3.csv",
+          "uncompressed_bytes": 427921437
+        }
+      ]
+    },
+    {
+      "archive": "sample_submission_v2.csv.7z",
+      "compressed_bytes": 30666957,
+      "entries": [
+        {
+          "path": "data/churn_comp_refresh/sample_submission_v2.csv",
+          "uncompressed_bytes": 42651151
+        }
+      ]
+    },
+    {
+      "archive": "sample_submission_zero.csv.7z",
+      "compressed_bytes": 32828332,
+      "entries": [
+        {
+          "path": "sample_submission_zero.csv",
+          "uncompressed_bytes": 45635134
+        }
+      ]
+    },
+    {
+      "archive": "train.csv.7z",
+      "compressed_bytes": 33563098,
+      "entries": [
+        {
+          "path": "train.csv",
+          "uncompressed_bytes": 46667771
+        }
+      ]
+    },
+    {
+      "archive": "train_v2.csv.7z",
+      "compressed_bytes": 32818991,
+      "entries": [
+        {
+          "path": "data/churn_comp_refresh/train_v2.csv",
+          "uncompressed_bytes": 45635134
+        }
+      ]
+    },
+    {
+      "archive": "transactions.csv.7z",
+      "compressed_bytes": 707508779,
+      "entries": [
+        {
+          "path": "transactions.csv",
+          "uncompressed_bytes": 1729298376
+        }
+      ]
+    },
+    {
+      "archive": "transactions_v2.csv.7z",
+      "compressed_bytes": 48850410,
+      "entries": [
+        {
+          "path": "data/churn_comp_refresh/transactions_v2.csv",
+          "uncompressed_bytes": 115394513
+        }
+      ]
+    },
+    {
+      "archive": "user_logs.csv.7z",
+      "compressed_bytes": 7136060375,
+      "entries": [
+        {
+          "path": "user_logs.csv",
+          "uncompressed_bytes": 30514081415
+        }
+      ]
+    },
+    {
+      "archive": "user_logs_v2.csv.7z",
+      "compressed_bytes": 685951221,
+      "entries": [
+        {
+          "path": "data/churn_comp_refresh/user_logs_v2.csv",
+          "uncompressed_bytes": 1431465728
+        }
+      ]
+    }
+  ],
+  "total_compressed_bytes": 8950556721,
+  "total_uncompressed_bytes": 34398750659,
+  "disk_d_free_bytes_at_check": 48920166400,
+  "empty_csv_files": [
+    "data\\kkbox-churn-prediction-challenge\\data\\churn_comp_refresh\\sample_submission_v2.csv",
+    "data\\kkbox-churn-prediction-challenge\\data\\churn_comp_refresh\\train_v2.csv",
+    "data\\kkbox-churn-prediction-challenge\\data\\churn_comp_refresh\\transactions_v2.csv",
+    "data\\kkbox-churn-prediction-challenge\\data\\churn_comp_refresh\\user_logs_v2.csv"
+  ],
+  "full_data_audit_complete": false
+}

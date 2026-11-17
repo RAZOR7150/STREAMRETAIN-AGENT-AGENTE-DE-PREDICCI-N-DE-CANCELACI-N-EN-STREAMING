@@ -1,0 +1,15 @@
+﻿# Datos y temporales que no se publican
+/data/kkbox-churn-prediction-challenge/
+/data/derived/
+/data/**/*.csv
+/data/**/*.7z
+/data/**/*.zip
+/docs/auditorias/
+.pdf_profile/
+.pdf_review/
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+kaggle.json
