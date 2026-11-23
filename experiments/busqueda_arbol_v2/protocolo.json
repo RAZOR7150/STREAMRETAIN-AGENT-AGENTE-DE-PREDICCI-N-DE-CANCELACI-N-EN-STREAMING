@@ -1,0 +1,79 @@
+{
+  "estado": "exploracion_v2_posterior_a_prueba_v1",
+  "fecha_utc": "2026-11-23T01:52:20.139665+00:00",
+  "semilla": 42,
+  "sklearn": "1.9.1",
+  "python": "3.11.16",
+  "sha256_seleccion_v1": "8d0c77c54a54b7be3d4f30b1f3d0e89f64490c8f6920196a5fd205c44120b5a7",
+  "caracteristicas": [
+    "transacciones_90d",
+    "transacciones_30d",
+    "cancelaciones_90d",
+    "dias_con_transacciones_90d",
+    "dias_desde_ultima_transaccion",
+    "dias_hasta_vencimiento"
+  ],
+  "cohortes": [
+    {
+      "corte": "2016-03-07",
+      "filas": 7443,
+      "sha256": "61524497b5a396338a84615e9060df2560f4cd5a7a24711c5ead42c6f6f6f429",
+      "seguimiento_hasta": "2016-05-05"
+    },
+    {
+      "corte": "2016-06-06",
+      "filas": 7210,
+      "sha256": "9e7aeee7f3d1f30ca84641a82343192a001ffe5e102ea9dc317bd2d8b7b35d6d",
+      "seguimiento_hasta": "2016-08-04"
+    },
+    {
+      "corte": "2016-09-05",
+      "filas": 8251,
+      "sha256": "7b73a18db00024e3fe8dbe1fa79d220b5a767a29f2cddfd2bdfca97d58de5cd8",
+      "seguimiento_hasta": "2016-11-03"
+    }
+  ],
+  "rejilla": {
+    "max_depth": [
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      null
+    ],
+    "min_samples_leaf": [
+      10,
+      20,
+      50,
+      100
+    ],
+    "class_weight": [
+      null,
+      "balanced"
+    ]
+  },
+  "umbrales": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "criterio": "F1 medio, AP media, cercanía a 0.5; empate restante por orden de rejilla"
+}

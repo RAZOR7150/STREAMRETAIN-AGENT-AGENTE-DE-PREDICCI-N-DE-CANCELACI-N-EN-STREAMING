@@ -1,0 +1,307 @@
+{
+  "modelo": "arbol",
+  "umbral": 0.6,
+  "sha256_predicciones": "9ed90758b5ea733555e531ec490e5b2a18e85c3464b63c0b86041a38cd76e5a5",
+  "sha256_resultado_final": "bb2221e564ad7bb87ece0ce75436e777b73853c466c3983148135be1f2e5a4de",
+  "global": {
+    "n": 8220,
+    "abandonos": 557,
+    "alertas": 535,
+    "prevalencia": 0.06776155717761558,
+    "precision": 0.3532710280373832,
+    "recall": 0.3393177737881508,
+    "f1": 0.34615384615384615,
+    "tasa_falsos_positivos": 0.04515202923137152,
+    "matriz": [
+      [
+        7317,
+        346
+      ],
+      [
+        368,
+        189
+      ]
+    ]
+  },
+  "grupos_exploratorios": {
+    "sin_cancelaciones_90d": {
+      "n": 7959,
+      "abandonos": 520,
+      "alertas": 492,
+      "prevalencia": 0.06533484106043473,
+      "precision": 0.3556910569105691,
+      "recall": 0.33653846153846156,
+      "f1": 0.3458498023715415,
+      "tasa_falsos_positivos": 0.042613254469686786,
+      "matriz": [
+        [
+          7122,
+          317
+        ],
+        [
+          345,
+          175
+        ]
+      ]
+    },
+    "con_cancelaciones_90d": {
+      "n": 261,
+      "abandonos": 37,
+      "alertas": 43,
+      "prevalencia": 0.1417624521072797,
+      "precision": 0.32558139534883723,
+      "recall": 0.3783783783783784,
+      "f1": 0.35,
+      "tasa_falsos_positivos": 0.12946428571428573,
+      "matriz": [
+        [
+          195,
+          29
+        ],
+        [
+          23,
+          14
+        ]
+      ]
+    },
+    "ultima_transaccion_menos_30d": {
+      "n": 7932,
+      "abandonos": 355,
+      "alertas": 487,
+      "prevalencia": 0.04475542107917297,
+      "precision": 0.34496919917864477,
+      "recall": 0.4732394366197183,
+      "f1": 0.3990498812351544,
+      "tasa_falsos_positivos": 0.042101095420351065,
+      "matriz": [
+        [
+          7258,
+          319
+        ],
+        [
+          187,
+          168
+        ]
+      ]
+    },
+    "ultima_transaccion_30d_o_mas": {
+      "n": 288,
+      "abandonos": 202,
+      "alertas": 48,
+      "prevalencia": 0.7013888888888888,
+      "precision": 0.4375,
+      "recall": 0.10396039603960396,
+      "f1": 0.168,
+      "tasa_falsos_positivos": 0.313953488372093,
+      "matriz": [
+        [
+          59,
+          27
+        ],
+        [
+          181,
+          21
+        ]
+      ]
+    }
+  },
+  "seleccion_casos": "5 FP de mayor puntaje y 5 FN de menor puntaje; no representativos",
+  "casos": [
+    {
+      "caso": "E01",
+      "tipo": "FP",
+      "etiqueta": 0,
+      "prediccion": 1,
+      "puntaje": 0.9801388110446383,
+      "caracteristicas": {
+        "transacciones_90d": 2,
+        "transacciones_30d": 0,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 2,
+        "dias_desde_ultima_transaccion": 34,
+        "dias_hasta_vencimiento": 14
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "El patrón histórico se parece al de riesgo, pero la etiqueta reconstruida indica renovación oportuna.",
+      "impacto_potencial": "Revisión o contacto innecesario si se actuara automáticamente.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E02",
+      "tipo": "FP",
+      "etiqueta": 0,
+      "prediccion": 1,
+      "puntaje": 0.9801388110446383,
+      "caracteristicas": {
+        "transacciones_90d": 3,
+        "transacciones_30d": 0,
+        "cancelaciones_90d": 1,
+        "dias_con_transacciones_90d": 2,
+        "dias_desde_ultima_transaccion": 35,
+        "dias_hasta_vencimiento": 18
+      },
+      "observacion": "Existe cancelación histórica; una cancelación por sí sola no determina abandono futuro.",
+      "hipotesis_no_confirmada": "El patrón histórico se parece al de riesgo, pero la etiqueta reconstruida indica renovación oportuna.",
+      "impacto_potencial": "Revisión o contacto innecesario si se actuara automáticamente.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E03",
+      "tipo": "FP",
+      "etiqueta": 0,
+      "prediccion": 1,
+      "puntaje": 0.9801388110446383,
+      "caracteristicas": {
+        "transacciones_90d": 2,
+        "transacciones_30d": 0,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 2,
+        "dias_desde_ultima_transaccion": 33,
+        "dias_hasta_vencimiento": 6
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "El patrón histórico se parece al de riesgo, pero la etiqueta reconstruida indica renovación oportuna.",
+      "impacto_potencial": "Revisión o contacto innecesario si se actuara automáticamente.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E04",
+      "tipo": "FP",
+      "etiqueta": 0,
+      "prediccion": 1,
+      "puntaje": 0.9334470679147692,
+      "caracteristicas": {
+        "transacciones_90d": 1,
+        "transacciones_30d": 1,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 1,
+        "dias_desde_ultima_transaccion": 8,
+        "dias_hasta_vencimiento": 21
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "El patrón histórico se parece al de riesgo, pero la etiqueta reconstruida indica renovación oportuna.",
+      "impacto_potencial": "Revisión o contacto innecesario si se actuara automáticamente.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E05",
+      "tipo": "FP",
+      "etiqueta": 0,
+      "prediccion": 1,
+      "puntaje": 0.9334470679147692,
+      "caracteristicas": {
+        "transacciones_90d": 1,
+        "transacciones_30d": 1,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 1,
+        "dias_desde_ultima_transaccion": 8,
+        "dias_hasta_vencimiento": 22
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "El patrón histórico se parece al de riesgo, pero la etiqueta reconstruida indica renovación oportuna.",
+      "impacto_potencial": "Revisión o contacto innecesario si se actuara automáticamente.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E06",
+      "tipo": "FN",
+      "etiqueta": 1,
+      "prediccion": 0,
+      "puntaje": 0.12655152115158275,
+      "caracteristicas": {
+        "transacciones_90d": 3,
+        "transacciones_30d": 1,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 3,
+        "dias_desde_ultima_transaccion": 18,
+        "dias_hasta_vencimiento": 12
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "Las seis variables históricas no distinguen este abandono; podrían faltar señales o la regla aprendida ser insuficiente.",
+      "impacto_potencial": "Oportunidad de revisión de retención omitida.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E07",
+      "tipo": "FN",
+      "etiqueta": 1,
+      "prediccion": 0,
+      "puntaje": 0.12655152115158275,
+      "caracteristicas": {
+        "transacciones_90d": 3,
+        "transacciones_30d": 1,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 3,
+        "dias_desde_ultima_transaccion": 30,
+        "dias_hasta_vencimiento": 0
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "Las seis variables históricas no distinguen este abandono; podrían faltar señales o la regla aprendida ser insuficiente.",
+      "impacto_potencial": "Oportunidad de revisión de retención omitida.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E08",
+      "tipo": "FN",
+      "etiqueta": 1,
+      "prediccion": 0,
+      "puntaje": 0.12655152115158275,
+      "caracteristicas": {
+        "transacciones_90d": 3,
+        "transacciones_30d": 1,
+        "cancelaciones_90d": 1,
+        "dias_con_transacciones_90d": 3,
+        "dias_desde_ultima_transaccion": 24,
+        "dias_hasta_vencimiento": 6
+      },
+      "observacion": "Existe cancelación histórica; una cancelación por sí sola no determina abandono futuro.",
+      "hipotesis_no_confirmada": "Las seis variables históricas no distinguen este abandono; podrían faltar señales o la regla aprendida ser insuficiente.",
+      "impacto_potencial": "Oportunidad de revisión de retención omitida.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E09",
+      "tipo": "FN",
+      "etiqueta": 1,
+      "prediccion": 0,
+      "puntaje": 0.12655152115158275,
+      "caracteristicas": {
+        "transacciones_90d": 3,
+        "transacciones_30d": 1,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 3,
+        "dias_desde_ultima_transaccion": 25,
+        "dias_hasta_vencimiento": 4
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "Las seis variables históricas no distinguen este abandono; podrían faltar señales o la regla aprendida ser insuficiente.",
+      "impacto_potencial": "Oportunidad de revisión de retención omitida.",
+      "revision_manual": "pendiente"
+    },
+    {
+      "caso": "E10",
+      "tipo": "FN",
+      "etiqueta": 1,
+      "prediccion": 0,
+      "puntaje": 0.12655152115158275,
+      "caracteristicas": {
+        "transacciones_90d": 3,
+        "transacciones_30d": 1,
+        "cancelaciones_90d": 0,
+        "dias_con_transacciones_90d": 3,
+        "dias_desde_ultima_transaccion": 30,
+        "dias_hasta_vencimiento": 0
+      },
+      "observacion": "No hay cancelaciones históricas registradas; su ausencia no garantiza renovación.",
+      "hipotesis_no_confirmada": "Las seis variables históricas no distinguen este abandono; podrían faltar señales o la regla aprendida ser insuficiente.",
+      "impacto_potencial": "Oportunidad de revisión de retención omitida.",
+      "revision_manual": "pendiente"
+    }
+  ],
+  "limites": [
+    "No se reajustó el modelo",
+    "Hipótesis pendientes de revisión humana",
+    "Etiquetas reconstruidas sujetas al supuesto de cobertura",
+    "Sin datos demográficos: no acredita equidad demográfica"
+  ]
+}

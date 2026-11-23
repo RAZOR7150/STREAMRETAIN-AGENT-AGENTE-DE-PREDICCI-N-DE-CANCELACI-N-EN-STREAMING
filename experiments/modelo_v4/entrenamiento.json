@@ -1,0 +1,30 @@
+{
+  "estado": "entrenado_sin_evaluacion_posterior",
+  "version": "v4",
+  "filas": 22904,
+  "abandonos": 2011,
+  "caracteristicas": [
+    "transacciones_90d",
+    "transacciones_30d",
+    "cancelaciones_90d",
+    "dias_con_transacciones_90d",
+    "dias_desde_ultima_transaccion",
+    "dias_hasta_vencimiento",
+    "promedio_duracion_plan_90d",
+    "promedio_precio_lista_90d",
+    "promedio_importe_registrado_90d",
+    "proporcion_autorenovacion_90d"
+  ],
+  "parametros": {
+    "class_weight": null,
+    "max_depth": 10,
+    "min_samples_leaf": 100
+  },
+  "umbral": 0.3,
+  "semilla": 42,
+  "python": "3.11.16",
+  "sklearn": "1.9.1",
+  "sha256_modelo": "8a9c3cc742bd1d240e400ec893243f686881c58a267ec9953ee560d5b931b6c3",
+  "sha256_seleccion": "b9b2fd73a8cbbf3790fe210815f490752ce5834dee5eb7f3d39e9039e9493fe8",
+  "advertencia": "La versión1 y sus resultados finales permanecen conservados"
+}

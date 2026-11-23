@@ -51,3 +51,7 @@ El usuario se encarga de Git local y GitHub/GitLab. No inicializar repositorios,
 ## Git y GitHub: gestión exclusiva del usuario
 
 El usuario se encarga de Git local y GitHub/GitLab. No inicializar repositorios, añadir archivos al índice, crear commits, modificar ramas/remotos ni publicar cambios sin una instrucción explícita para esa operación. Preparar documentación o archivos no autoriza operaciones de Git. El commit inicial creado por Codex fue deshecho a petición del usuario; no repetir esa actuación.
+
+## Reutilización de código solicitada por el estudiante
+
+Desde esta petición las guías deben priorizar módulos compartidos e importaciones en lugar de repetir funciones. Una extracción inicial de funciones existentes es aceptable y debe explicarse; los scripts históricos pueden conservarse. Las funciones generales no ejecutan lecturas, entrenamientos ni escrituras al importarse. Los programas nuevos usan main y guardia __name__. Se mantiene que el estudiante implementa y ejecuta el código entregable; Codex prepara guías y verifica sintaxis sin entrenar por él.

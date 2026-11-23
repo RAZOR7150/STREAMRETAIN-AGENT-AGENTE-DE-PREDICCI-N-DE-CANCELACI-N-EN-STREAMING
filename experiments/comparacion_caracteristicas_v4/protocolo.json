@@ -1,0 +1,147 @@
+{
+  "estado": "desarrollo_exploratorio_v4_posterior_a_prueba_v1",
+  "fecha_utc": "2026-11-23T02:56:43.789746+00:00",
+  "semilla": 42,
+  "sklearn": "1.9.1",
+  "python": "3.11.16",
+  "sha256_manifiesto": "f5c45ded25fac74d9aefa2811be31211d466dac6612038a1a59d4411c67c56ed",
+  "sha256_referencia": "405fd99915325188a34df82bbc82279bac89ebc66e647f6f66a406bcc5ac2734",
+  "cohortes": [
+    {
+      "corte": "2016-03-07",
+      "filas": 7443,
+      "sha256": "cd07d575050752a095c9a0cb4d4c7d97aaba23fb68401aa1bbfac094b478f10b",
+      "resumen_nuevas_caracteristicas": {
+        "promedio_duracion_plan_90d": {
+          "min": 8.0,
+          "max": 395.0,
+          "media": 30.01092045578136
+        },
+        "promedio_precio_lista_90d": {
+          "min": 0.0,
+          "max": 480.0,
+          "media": 133.52385302905233
+        },
+        "promedio_importe_registrado_90d": {
+          "min": 0.0,
+          "max": 480.0,
+          "media": 131.10883444335667
+        },
+        "proporcion_autorenovacion_90d": {
+          "min": 0.0,
+          "max": 1.0,
+          "media": 0.8664929655860744
+        }
+      }
+    },
+    {
+      "corte": "2016-06-06",
+      "filas": 7210,
+      "sha256": "f4e0338e5d85561e31002e250afbf0f2d6c4dab78ae86bb4075b6aef53ce0061",
+      "resumen_nuevas_caracteristicas": {
+        "promedio_duracion_plan_90d": {
+          "min": 7.0,
+          "max": 100.0,
+          "media": 30.087411663694606
+        },
+        "promedio_precio_lista_90d": {
+          "min": 0.0,
+          "max": 480.0,
+          "media": 131.826265107985
+        },
+        "promedio_importe_registrado_90d": {
+          "min": 0.0,
+          "max": 480.0,
+          "media": 129.68253880192864
+        },
+        "proporcion_autorenovacion_90d": {
+          "min": 0.0,
+          "max": 1.0,
+          "media": 0.8779241793804904
+        }
+      }
+    },
+    {
+      "corte": "2016-09-05",
+      "filas": 8251,
+      "sha256": "f58b28b6137bcd19593108d1d75645d6163afa939f15314d7f17cc713c82730e",
+      "resumen_nuevas_caracteristicas": {
+        "promedio_duracion_plan_90d": {
+          "min": 1.0,
+          "max": 100.0,
+          "media": 29.45415707187008
+        },
+        "promedio_precio_lista_90d": {
+          "min": 0.0,
+          "max": 480.0,
+          "media": 126.53426453359192
+        },
+        "promedio_importe_registrado_90d": {
+          "min": 0.0,
+          "max": 480.0,
+          "media": 125.84912535854242
+        },
+        "proporcion_autorenovacion_90d": {
+          "min": 0.0,
+          "max": 1.0,
+          "media": 0.8722235688603405
+        }
+      }
+    }
+  ],
+  "caracteristicas": [
+    "transacciones_90d",
+    "transacciones_30d",
+    "cancelaciones_90d",
+    "dias_con_transacciones_90d",
+    "dias_desde_ultima_transaccion",
+    "dias_hasta_vencimiento",
+    "promedio_duracion_plan_90d",
+    "promedio_precio_lista_90d",
+    "promedio_importe_registrado_90d",
+    "proporcion_autorenovacion_90d"
+  ],
+  "rejilla": {
+    "max_depth": [
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      null
+    ],
+    "min_samples_leaf": [
+      10,
+      20,
+      50,
+      100
+    ],
+    "class_weight": [
+      null,
+      "balanced"
+    ]
+  },
+  "umbrales": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "criterio": "F1 medio, AP media, cercanía a 0.5; empate restante por orden de rejilla"
+}
