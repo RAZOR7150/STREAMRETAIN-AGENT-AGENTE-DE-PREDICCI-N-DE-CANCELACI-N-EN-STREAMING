@@ -1,4 +1,4 @@
-import hashlib
+﻿import hashlib
 import json
 import math
 from datetime import datetime, timezone
@@ -68,11 +68,47 @@ st.caption("Diciembre ya fue observado durante el desarrollo; esta comparación 
 
 # Escenarios simulados: no tienen una etiqueta real de abandono conocida.
 perfiles = {
-    "Escenario A · editable": [2, 0, 0, 2, 34, 14, 30.0, 149.0, 149.0, 1.0],
-    "Escenario B · editable": [3, 1, 0, 3, 18, 12, 30.0, 149.0, 149.0, 0.0],
+    "A · Pagos recientes y autorrenovación": [3, 1, 0, 3, 5, 25, 30.0, 149.0, 149.0, 1.0],
+    "B · Tres transacciones sin autorrenovación": [3, 1, 0, 3, 18, 12, 30.0, 149.0, 149.0, 0.0],
+    "C · Un solo registro, vencimiento cercano": [1, 1, 0, 1, 25, 5, 30.0, 149.0, 149.0, 0.0],
+    "D · Plan de 60 días sin pagos recientes": [1, 0, 0, 1, 55, 5, 60.0, 300.0, 300.0, 0.0],
+    "E · Cancelación y autorrenovación parcial": [2, 1, 1, 2, 15, 15, 30.0, 149.0, 149.0, 0.5],
 }
-elegido = st.selectbox("Perfil inicial", list(perfiles))
-st.caption("Escenarios ilustrativos sin resultado real conocido. Las medias se calculan sobre registros de los 90 días anteriores al corte.")
+descripciones = {
+    "A · Pagos recientes y autorrenovación": (
+        "Tiene tres transacciones en los últimos 90 días, sin cancelaciones. "
+        "La más reciente fue hace 5 días y el plan vence en 25. "
+        "Todos los registros tienen autorrenovación activada."
+    ),
+    "B · Tres transacciones sin autorrenovación": (
+        "Tiene tres transacciones en los últimos 90 días, sin cancelaciones. "
+        "La más reciente fue hace 18 días y el plan vence en 12. "
+        "Ningún registro tiene autorrenovación activada."
+    ),
+    "C · Un solo registro, vencimiento cercano": (
+        "Solo tiene una transacción registrada en la ventana de 90 días. "
+        "Fue hace 25 días, el plan vence en 5 y no tiene autorrenovación. "
+        "Un solo registro en esta ventana no significa necesariamente que sea un cliente nuevo."
+    ),
+    "D · Plan de 60 días sin pagos recientes": (
+        "Tiene una transacción hace 55 días para un plan de 60 días, "
+        "con vencimiento dentro de 5 y sin autorrenovación. "
+        "No tener pagos en los últimos 30 días puede ser coherente con la duración del plan."
+    ),
+    "E · Cancelación y autorrenovación parcial": (
+        "Tiene dos transacciones, incluida una cancelación administrativa. "
+        "La última transacción fue hace 15 días y el vencimiento conocido está a 15 días. "
+        "Uno de los dos registros tiene autorrenovación. La cancelación no demuestra por sí sola abandono."
+    ),
+}
+elegido = st.selectbox("Elige un escenario para probar", list(perfiles))
+st.info(descripciones[elegido])
+st.caption(
+    "Perfiles ficticios elegidos para mostrar decisiones distintas del modelo: "
+    "no son una muestra para medir su precisión ni tienen resultado real conocido. "
+    "Puedes editar los valores y pulsar Evaluar; la decisión se calcula con V4 y el umbral fijo de 0,30."
+)
+
 etiquetas = [
     "Transacciones en 90 días", "Transacciones en 30 días", "Cancelaciones en 90 días",
     "Días distintos con transacciones en 90 días", "Días desde la última transacción",
@@ -163,3 +199,4 @@ with st.expander("Cómo se evaluó y qué límites tiene"):
     st.write("Ventana de candidatos: vencimiento conocido entre 0 y 29 días; una renovación con gap ≥ 30 días se considera tardía. No equivale a predecir exactamente 28 días.")
     st.write("La interfaz no calcula características desde transacciones, no reentrena ni prueba la eficacia de una campaña de retención.")
     st.json(metricas)
+
