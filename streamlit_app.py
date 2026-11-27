@@ -1,3 +1,4 @@
+import hashlib
 import json
 import math
 from datetime import datetime, timezone
@@ -24,9 +25,19 @@ try:
     ruta_modelo = carpeta / "modelo_agente.joblib"
     huella = calcular_huella(ruta_modelo)
     # Comprobamos que usamos el artefacto y la selección que se evaluaron.
-    if (huella != evidencia["sha256_modelo"]
-            or calcular_huella(carpeta / "seleccion.json") != evidencia["sha256_seleccion"]):
-        raise ValueError("El modelo o su selección no coinciden con la evaluación")
+    # Git puede convertir CRLF (Windows) en LF (Linux). Comparamos los
+    # mismos bytes con ambas convenciones, sin ignorar cambios de contenido.
+    seleccion_bytes = (carpeta / "seleccion.json").read_bytes()
+    seleccion_lf = seleccion_bytes.replace(b"\r\n", b"\n")
+    huellas_seleccion = {
+        hashlib.sha256(contenido).hexdigest()
+        for contenido in (seleccion_bytes, seleccion_lf,
+                          seleccion_lf.replace(b"\n", b"\r\n"))
+    }
+    if huella != evidencia["sha256_modelo"]:
+        raise ValueError("El archivo del modelo no coincide con la evaluación")
+    if evidencia["sha256_seleccion"] not in huellas_seleccion:
+        raise ValueError("El contenido de seleccion.json no coincide con la evaluación")
     if sklearn.__version__ != evidencia["sklearn"]:
         raise ValueError("La versión de scikit-learn no coincide")
     # Se carga exclusivamente nuestro artefacto local de confianza.
